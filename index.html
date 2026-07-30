@@ -1,1290 +1,473 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Perikala Anusha — Cybersecurity Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #0A1628;
-    --navy2: #0F2040;
-    --teal: #00D4B8;
-    --teal2: #00A896;
-    --blue: #1A6BAD;
-    --cyan: #00BFFF;
-    --white: #F0F4FF;
-    --muted: #8899BB;
-    --card: #0D1E35;
-    --card2: #122444;
-    --border: rgba(0,212,184,0.15);
-    --border2: rgba(0,212,184,0.35);
-    --mono: 'Space Mono', monospace;
-    --sans: 'DM Sans', sans-serif;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--navy);
-    color: var(--white);
-    font-family: var(--sans);
-    font-size: 15px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anusha — Cybersecurity Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+    <style>
+        /* ── Reset & Base ── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0e17;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
 
-  /* NOISE OVERLAY */
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 0; opacity: 0.4;
-  }
+        /* ── Typography ── */
+        h1, h2, h3 { font-weight: 600; line-height: 1.2; }
+        h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+        h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 2rem; }
+        h3 { font-size: 1.2rem; margin-bottom: 0.75rem; }
+        p { margin-bottom: 1rem; color: #94a3b8; }
+        a { color: #38bdf8; text-decoration: none; transition: color 0.2s; }
+        a:hover { color: #7dd3fc; }
+        code {
+            background: #1e293b;
+            padding: 0.15em 0.4em;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #e2e8f0;
+        }
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    background: rgba(10,22,40,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 5%;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 60px; z-index: 100;
-  }
-  .nav-logo {
-    font-family: var(--mono);
-    font-size: 13px; font-weight: 700;
-    color: var(--teal); letter-spacing: 2px;
-  }
-  .nav-links { display: flex; gap: 28px; list-style: none; }
-  .nav-links a {
-    text-decoration: none; color: var(--muted);
-    font-size: 12px; font-family: var(--mono); letter-spacing: 1px;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--teal); }
+        /* ── Layout ── */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+        section { padding: 5rem 0; }
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #38bdf8;
+            margin-bottom: 0.75rem;
+        }
 
-  /* SECTIONS */
-  section { position: relative; z-index: 1; }
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+        /* ── Header / Hero ── */
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(56,189,248,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .hero-content { position: relative; z-index: 1; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(56,189,248,0.1);
+            border: 1px solid rgba(56,189,248,0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            color: #38bdf8;
+            margin-bottom: 1.5rem;
+        }
+        .hero-badge span { color: #7dd3fc; }
+        .hero-content h1 span { color: #38bdf8; }
+        .hero-content p {
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 1.5rem 0 2rem;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .hero-stats div { text-align: center; }
+        .hero-stats .num { font-size: 1.8rem; font-weight: 700; color: #f1f5f9; }
+        .hero-stats .label { font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
 
-  /* HERO */
-  #hero {
-    min-height: 100vh;
-    display: flex; align-items: center;
-    padding-top: 60px;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,212,184,0.08) 0%, transparent 70%);
-  }
-  .hero-inner { max-width: 800px; }
-  .hero-tag {
-    display: inline-block;
-    font-family: var(--mono); font-size: 11px; letter-spacing: 3px;
-    color: var(--teal); border: 1px solid var(--border2);
-    padding: 5px 14px; border-radius: 20px; margin-bottom: 28px;
-  }
-  .hero-name {
-    font-family: var(--mono); font-size: clamp(38px, 7vw, 72px);
-    font-weight: 700; line-height: 1.05;
-    color: var(--white); letter-spacing: -1px;
-    margin-bottom: 10px;
-  }
-  .hero-name span { color: var(--teal); }
-  .hero-title {
-    font-family: var(--mono); font-size: clamp(14px, 2.5vw, 20px);
-    color: var(--muted); letter-spacing: 2px;
-    margin-bottom: 24px;
-  }
-  .hero-desc {
-    font-size: 16px; color: rgba(240,244,255,0.75);
-    max-width: 580px; line-height: 1.8; margin-bottom: 40px;
-  }
-  .hero-badges {
-    display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px;
-  }
-  .badge {
-    font-family: var(--mono); font-size: 11px; letter-spacing: 1px;
-    padding: 6px 14px; border-radius: 4px;
-    border: 1px solid var(--border2);
-    background: rgba(0,212,184,0.07);
-    color: var(--teal);
-  }
-  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
-  .btn-primary {
-    display: inline-block; text-decoration: none;
-    background: var(--teal); color: var(--navy);
-    font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 2px;
-    padding: 13px 28px; border-radius: 4px;
-    transition: background 0.2s, transform 0.15s;
-  }
-  .btn-primary:hover { background: var(--teal2); transform: translateY(-1px); }
-  .btn-outline {
-    display: inline-block; text-decoration: none;
-    border: 1px solid var(--border2); color: var(--teal);
-    font-family: var(--mono); font-size: 12px; letter-spacing: 2px;
-    padding: 13px 28px; border-radius: 4px;
-    transition: background 0.2s, transform 0.15s;
-  }
-  .btn-outline:hover { background: rgba(0,212,184,0.08); transform: translateY(-1px); }
+        .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.75rem 1.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        .btn-primary {
+            background: #38bdf8;
+            color: #0a0e17;
+        }
+        .btn-primary:hover { background: #7dd3fc; color: #0a0e17; }
+        .btn-secondary {
+            background: transparent;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+        }
+        .btn-secondary:hover { border-color: #38bdf8; color: #38bdf8; }
 
-  /* SECTION TITLES */
-  .sec-label {
-    font-family: var(--mono); font-size: 11px; letter-spacing: 4px;
-    color: var(--teal); margin-bottom: 10px;
-  }
-  .sec-title {
-    font-size: clamp(26px, 4vw, 38px); font-weight: 600;
-    color: var(--white); margin-bottom: 12px;
-  }
-  .sec-line {
-    width: 48px; height: 2px; background: var(--teal);
-    margin-bottom: 48px;
-  }
+        /* ── Wargame Cards ── */
+        .wargame-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        @media (max-width: 700px) { .wargame-grid { grid-template-columns: 1fr; } }
+        .wargame-card {
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 1.75rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .wargame-card:hover { border-color: #38bdf8; transform: translateY(-2px); }
+        .wargame-card .card-header {
+            display: flex; align-items: center; gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .wargame-card .card-header .icon {
+            font-size: 1.8rem;
+            width: 48px; height: 48px;
+            display: flex; align-items: center; justify-content: center;
+            background: #1e293b;
+            border-radius: 10px;
+        }
+        .wargame-card .card-header h3 { margin: 0; }
+        .wargame-card .tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-right: 0.4rem;
+            margin-bottom: 0.4rem;
+        }
+        .tag-green { background: rgba(34,197,94,0.15); color: #4ade80; }
+        .tag-blue  { background: rgba(56,189,248,0.15); color: #38bdf8; }
+        .tag-purple{ background: rgba(168,85,247,0.15); color: #c084fc; }
+        .tag-amber { background: rgba(251,191,36,0.15); color: #fbbf24; }
 
-  /* STATS BAR */
-  #stats {
-    background: var(--card);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 36px 5%;
-  }
-  .stats-grid {
-    max-width: 1100px; margin: 0 auto;
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 24px; text-align: center;
-  }
-  .stat-num {
-    font-family: var(--mono); font-size: 32px; font-weight: 700;
-    color: var(--teal); display: block;
-  }
-  .stat-label {
-    font-size: 12px; color: var(--muted); letter-spacing: 1px; margin-top: 4px;
-  }
+        .skill-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+        .skill-list span {
+            background: #1e293b;
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
 
-  /* ABOUT */
-  #about { padding: 100px 5%; }
-  .about-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
-  }
-  .about-text p { color: rgba(240,244,255,0.75); margin-bottom: 16px; line-height: 1.8; }
-  .info-list { list-style: none; margin-top: 24px; }
-  .info-list li {
-    display: flex; gap: 12px; padding: 10px 0;
-    border-bottom: 1px solid var(--border); font-size: 14px;
-  }
-  .info-list .il { color: var(--teal); font-family: var(--mono); font-size: 11px; min-width: 90px; }
-  .info-list .iv { color: rgba(240,244,255,0.8); }
+        /* ── Projects / Evidence ── */
+        .project-card {
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .project-card .meta {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 0.75rem;
+        }
+        .project-card .meta span { margin-right: 1.5rem; }
+        .project-card ul { list-style: none; padding-left: 0; }
+        .project-card ul li {
+            padding-left: 1.2rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+            color: #94a3b8;
+        }
+        .project-card ul li::before {
+            content: '›';
+            position: absolute; left: 0;
+            color: #38bdf8;
+            font-weight: 700;
+        }
 
-  /* INTERNSHIP */
-  #internship { padding: 100px 5%; background: var(--navy2); }
-  .intern-card {
-    background: var(--card); border: 1px solid var(--border2);
-    border-radius: 8px; overflow: hidden;
-  }
-  .intern-header {
-    background: linear-gradient(135deg, #0F2040 0%, #122444 100%);
-    border-bottom: 1px solid var(--border2);
-    padding: 28px 32px;
-    display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;
-  }
-  .intern-org { font-family: var(--mono); font-size: 11px; letter-spacing: 3px; color: var(--teal); margin-bottom: 6px; }
-  .intern-role { font-size: 22px; font-weight: 600; color: var(--white); }
-  .intern-date {
-    font-family: var(--mono); font-size: 12px; color: var(--muted);
-    background: rgba(0,212,184,0.08); border: 1px solid var(--border);
-    padding: 6px 14px; border-radius: 20px; white-space: nowrap;
-  }
-  .tasks-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
-  }
-  .task-block {
-    padding: 32px;
-    border-right: 1px solid var(--border);
-  }
-  .task-block:last-child { border-right: none; }
-  .task-num {
-    font-family: var(--mono); font-size: 11px; letter-spacing: 3px;
-    color: var(--teal); margin-bottom: 8px;
-  }
-  .task-title { font-size: 17px; font-weight: 600; color: var(--white); margin-bottom: 16px; }
-  .task-items { list-style: none; }
-  .task-items li {
-    font-size: 13px; color: rgba(240,244,255,0.72); padding: 6px 0;
-    border-bottom: 1px solid rgba(0,212,184,0.06); display: flex; gap: 8px;
-  }
-  .task-items li::before { content: '▸'; color: var(--teal); flex-shrink: 0; margin-top: 1px; }
-  .tools-row {
-    padding: 20px 32px;
-    border-top: 1px solid var(--border);
-    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
-  }
-  .tools-label { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; color: var(--muted); margin-right: 4px; }
-  .tool-pill {
-    font-family: var(--mono); font-size: 11px; color: var(--teal);
-    background: rgba(0,212,184,0.07); border: 1px solid var(--border);
-    padding: 4px 11px; border-radius: 3px;
-  }
+        /* ── Think-Aloud / Mindset ── */
+        .think-card {
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-left: 3px solid #38bdf8;
+            border-radius: 0 12px 12px 0;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .think-card .step { font-size: 0.75rem; color: #38bdf8; font-weight: 700; text-transform: uppercase; margin-bottom: 0.25rem; }
+        .think-card h4 { margin-bottom: 0.5rem; }
+        .think-card p { font-size: 0.9rem; margin: 0; }
 
-  /* SKILLS */
-  #skills { padding: 100px 5%; }
-  .skills-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-  }
-  .skill-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 6px; padding: 24px;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .skill-card:hover { border-color: var(--border2); transform: translateY(-2px); }
-  .skill-cat {
-    font-family: var(--mono); font-size: 11px; letter-spacing: 2px;
-    color: var(--teal); margin-bottom: 14px;
-  }
-  .skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
-  .skill-tag {
-    font-size: 12px; color: rgba(240,244,255,0.72);
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-    padding: 4px 10px; border-radius: 3px;
-  }
+        /* ── Footer ── */
+        footer {
+            border-top: 1px solid #1e293b;
+            padding: 2rem 0;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+        footer a { color: #94a3b8; }
+        footer a:hover { color: #38bdf8; }
 
-  /* PROJECTS */
-  #projects { padding: 100px 5%; }
-  .projects-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
-  .project-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 10px; overflow: hidden;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .project-card:hover { border-color: var(--border2); transform: translateY(-3px); }
-  .project-header {
-    background: linear-gradient(135deg, #0F2040 0%, #122444 100%);
-    border-bottom: 1px solid var(--border2);
-    padding: 28px 32px;
-    display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;
-  }
-  .project-tag {
-    font-family: var(--mono); font-size: 10px; letter-spacing: 3px;
-    color: var(--teal); margin-bottom: 6px;
-  }
-  .project-title { font-size: 20px; font-weight: 600; color: var(--white); }
-  .project-badge {
-    font-family: var(--mono); font-size: 11px; color: var(--teal);
-    background: rgba(0,212,184,0.08); border: 1px solid var(--border2);
-    padding: 6px 14px; border-radius: 20px; white-space: nowrap;
-  }
-  .project-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-  .project-block { padding: 28px 32px; border-right: 1px solid var(--border); }
-  .project-block:last-child { border-right: none; }
-  .project-block-title {
-    font-family: var(--mono); font-size: 11px; letter-spacing: 2px;
-    color: var(--teal); margin-bottom: 14px;
-  }
-  .project-items { list-style: none; }
-  .project-items li {
-    font-size: 13px; color: rgba(240,244,255,0.72); padding: 6px 0;
-    border-bottom: 1px solid rgba(0,212,184,0.06); display: flex; gap: 8px;
-  }
-  .project-items li::before { content: '▸'; color: var(--teal); flex-shrink: 0; margin-top: 1px; }
-  .project-result {
-    padding: 20px 32px; border-top: 1px solid var(--border);
-    background: rgba(0,212,184,0.03);
-    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-  }
-  .result-label { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; color: var(--muted); }
-  .result-item {
-    display: flex; align-items: center; gap: 7px;
-    font-family: var(--mono); font-size: 11px; color: var(--teal);
-    background: rgba(0,212,184,0.07); border: 1px solid var(--border);
-    padding: 5px 12px; border-radius: 3px;
-  }
-  .result-dot { width: 6px; height: 6px; border-radius: 50%; background: #00ff99; flex-shrink: 0; }
-  @media(max-width: 768px) {
-    .project-body { grid-template-columns: 1fr; }
-    .project-block { border-right: none; border-bottom: 1px solid var(--border); }
-  }
-
-  /* PLATFORMS */
-  #platforms { padding: 100px 5%; background: var(--navy2); }
-  .platforms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .platform-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 8px; padding: 28px;
-  }
-  .platform-header {
-    display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
-  }
-  .platform-icon {
-    width: 44px; height: 44px; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--mono); font-size: 13px; font-weight: 700;
-  }
-  .platform-icon.thm { background: rgba(220,30,30,0.15); color: #FF4444; border: 1px solid rgba(220,30,30,0.3); }
-  .platform-icon.htb { background: rgba(155,240,75,0.12); color: #9BF04B; border: 1px solid rgba(155,240,75,0.25); }
-  .platform-name { font-size: 17px; font-weight: 600; color: var(--white); }
-  .platform-sub { font-size: 12px; color: var(--muted); }
-  .platform-items { list-style: none; }
-  .platform-items li {
-    font-size: 13px; color: rgba(240,244,255,0.72); padding: 7px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; gap: 8px;
-  }
-  .platform-items li::before { content: '▸'; color: var(--teal); flex-shrink: 0; }
-  .badges-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-  .htb-badge {
-    font-family: var(--mono); font-size: 11px;
-    padding: 5px 12px; border-radius: 3px;
-    background: rgba(155,240,75,0.08); border: 1px solid rgba(155,240,75,0.2);
-    color: #9BF04B;
-  }
-  .htb-badge.win { background: rgba(255,200,0,0.1); border-color: rgba(255,200,0,0.3); color: #FFD700; }
-
-  /* VIRTUAL EXPERIENCE */
-  #experience { padding: 100px 5%; }
-  .exp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-  .exp-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 8px; padding: 24px;
-    transition: border-color 0.2s;
-  }
-  .exp-card:hover { border-color: var(--border2); }
-  .exp-company {
-    font-family: var(--mono); font-size: 16px; font-weight: 700;
-    color: var(--teal); margin-bottom: 4px;
-  }
-  .exp-prog { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
-  .exp-pts { list-style: none; }
-  .exp-pts li { font-size: 13px; color: rgba(240,244,255,0.7); padding: 5px 0; display: flex; gap: 8px; }
-  .exp-pts li::before { content: '▸'; color: var(--teal); flex-shrink: 0; }
-
-  /* CERTS */
-  #certs { padding: 100px 5%; background: var(--navy2); }
-  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
-  .cert-item {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 6px; padding: 16px 20px;
-    display: flex; gap: 14px; align-items: flex-start;
-  }
-  .cert-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--teal); flex-shrink: 0; margin-top: 6px;
-  }
-  .cert-dot.inprog { background: #FFD700; }
-  .cert-name { font-size: 13px; font-weight: 500; color: var(--white); line-height: 1.4; }
-  .cert-issuer { font-size: 11px; color: var(--muted); margin-top: 3px; font-family: var(--mono); }
-  .cert-year { font-family: var(--mono); font-size: 11px; color: var(--teal); }
-
-  /* CONTACT */
-  #contact {
-    padding: 100px 5%;
-    text-align: center;
-    background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(0,212,184,0.07) 0%, transparent 70%);
-  }
-  .contact-desc { color: var(--muted); max-width: 480px; margin: 0 auto 40px; }
-  .contact-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-  .contact-link {
-    display: flex; align-items: center; gap: 10px; text-decoration: none;
-    font-family: var(--mono); font-size: 12px; letter-spacing: 1px; color: var(--teal);
-    border: 1px solid var(--border2); padding: 13px 24px; border-radius: 4px;
-    transition: background 0.2s;
-  }
-  .contact-link:hover { background: rgba(0,212,184,0.08); }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 24px 5%;
-    text-align: center;
-    font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px;
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .fade-up { animation: fadeUp 0.7s ease both; }
-  .fade-up:nth-child(2) { animation-delay: 0.1s; }
-  .fade-up:nth-child(3) { animation-delay: 0.2s; }
-  .fade-up:nth-child(4) { animation-delay: 0.3s; }
-  .fade-up:nth-child(5) { animation-delay: 0.4s; }
-  .fade-up:nth-child(6) { animation-delay: 0.5s; }
-
-  /* RESPONSIVE */
-  @media(max-width: 768px) {
-    .about-grid { grid-template-columns: 1fr; }
-    .tasks-grid { grid-template-columns: 1fr; }
-    .task-block { border-right: none; border-bottom: 1px solid var(--border); }
-    .platforms-grid { grid-template-columns: 1fr; }
-    .nav-links { display: none; }
-  }
-
-  /* PROJECT DETAIL PANELS */
-  .project-detail-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: var(--mono); font-size: 11px; letter-spacing: 2px;
-    color: var(--teal); border: 1px solid var(--border2);
-    background: rgba(0,212,184,0.06);
-    padding: 8px 18px; border-radius: 4px; cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-    margin-top: 4px;
-  }
-  .project-detail-btn:hover { background: rgba(0,212,184,0.12); transform: translateY(-1px); }
-  .project-detail-btn .arrow { transition: transform 0.3s; display: inline-block; }
-  .project-detail-btn.open .arrow { transform: rotate(180deg); }
-
-  .project-detail-panel {
-    display: none;
-    border-top: 1px solid var(--border);
-    background: #080f1c;
-  }
-  .project-detail-panel.open { display: block; }
-  .project-detail-inner {
-    padding: 32px;
-  }
-  .detail-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
-  }
-  @media(max-width:768px) { .detail-grid { grid-template-columns: 1fr; } }
-
-  .detail-box {
-    background: #0d1117;
-    border-radius: 10px;
-    border: 1px solid #1e2d45;
-    padding: 0;
-    overflow: hidden;
-  }
-  .detail-caption {
-    background: #0f2040;
-    border-bottom: 1px solid rgba(0,212,184,0.3);
-    border-radius: 0;
-    padding: 10px 16px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .detail-caption-num {
-    font-family: var(--mono); font-size: 11px; font-weight: 700;
-    color: #0a0e1a; background: var(--teal);
-    padding: 2px 8px; border-radius: 3px; letter-spacing: 1px;
-  }
-  .detail-caption-text {
-    font-family: var(--mono); font-size: 13px; font-weight: 600;
-    color: var(--white); letter-spacing: 0.5px;
-  }
-  .detail-caption-badge {
-    margin-left: auto; font-size: 10px; color: var(--teal);
-    border: 1px solid rgba(0,212,184,0.4);
-    padding: 2px 8px; border-radius: 3px; letter-spacing: 1px; white-space: nowrap;
-  }
-  .detail-term-bar {
-    background: linear-gradient(135deg, #1a2332, #1e2d45);
-    padding: 10px 16px;
-    display: flex; align-items: center; gap: 8px;
-    border-bottom: 1px solid #1e2d45;
-  }
-  .detail-dot { width: 12px; height: 12px; border-radius: 50%; }
-  .detail-dot.r { background: #ff5f57; }
-  .detail-dot.y { background: #febc2e; }
-  .detail-dot.g { background: #28c840; }
-  .detail-term-title { margin-left: 8px; font-size: 11px; color: #6b7fa3; letter-spacing: 1px; }
-  .detail-term-badge {
-    margin-left: auto; font-size: 9px; color: var(--teal);
-    background: rgba(0,212,184,0.08); border: 1px solid rgba(0,212,184,0.2);
-    padding: 2px 8px; border-radius: 10px; letter-spacing: 1px;
-  }
-  .detail-term-body { padding: 16px 20px; font-family: var(--mono); font-size: 12px; line-height: 1.6; }
-  .dl { display: flex; align-items: flex-start; gap: 0; margin-bottom: 2px; }
-  .dp { color: var(--teal); white-space: nowrap; margin-right: 0; }
-  .dc { color: var(--white); }
-  .do { color: #8899bb; font-size: 11.5px; }
-  .dt { color: var(--teal); }
-  .dg { color: #28c840; }
-  .dy { color: #febc2e; }
-  .dr { color: #ff5f57; }
-  .dw { color: var(--white); }
-  .dm { color: #4a5a7a; }
-  .db { font-weight: 700; }
-  .result-box {
-    background: rgba(0,212,184,0.05); border: 1px solid rgba(0,212,184,0.15);
-    border-radius: 4px; padding: 8px 12px; margin-top: 8px;
-  }
-  .result-row { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
-  .result-dot2 { width: 6px; height: 6px; border-radius: 50%; background: #00ff88; flex-shrink: 0; }
-  .result-text { font-size: 11px; color: var(--teal); }
-
-  /* Simple info boxes for ZAP / Nmap / SOC projects */
-  .detail-info-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-  }
-  @media(max-width:768px) { .detail-info-grid { grid-template-columns: 1fr; } }
-  .detail-info-box {
-    background: #0d1117; border-radius: 10px;
-    border: 1px solid #1e2d45; padding: 16px 18px;
-  }
-  .dib-heading { color: var(--teal); font-size: 14px; font-weight: 600; font-family: var(--mono); margin-bottom: 6px; }
-  .dib-cmd { color: var(--teal); font-size: 12px; font-family: var(--mono); margin-bottom: 8px; }
-  .dib-text { color: #cfd8ff; font-size: 12px; line-height: 1.6; }
-  .dib-result { margin-top: 10px; font-size: 12px; color: #00ff88; }
-</style>
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0e17; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">PA://SEC</div>
-  <ul class="nav-links">
-    <li><a href="#about">about</a></li>
-    <li><a href="#internship">internship</a></li>
-    <li><a href="#skills">skills</a></li>
-    <li><a href="#projects">projects</a></li>
-    <li><a href="#platforms">labs</a></li>
-    <li><a href="#experience">experience</a></li>
-    <li><a href="#certs">certs</a></li>
-    <li><a href="#contact">contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="container">
-    <div class="hero-inner">
-      <div class="hero-tag fade-up">AVAILABLE FOR HIRE</div>
-      <h1 class="hero-name fade-up">Perikala<br><span>Anusha</span></h1>
-      <div class="hero-title fade-up">CYBERSECURITY ANALYST · ETHICAL HACKER · SOC ANALYST</div>
-      <p class="hero-desc fade-up">
-        B.Tech Computer Science graduate with hands-on experience in penetration testing,
-        web application security, and network hardening. Trained across TryHackMe,
-        Hack The Box, and real-world internship environments.
-      </p>
-      <div class="hero-badges fade-up">
-        <span class="badge">TryHackMe Active Learner</span>
-        <span class="badge">HTB — 5 Badges + Hack2Win 2025</span>
-        <span class="badge">Cisco Ethical Hacker</span>
-        <span class="badge">Redynox Cyber Intern</span>
-      </div>
-      <div class="hero-btns fade-up">
-        <a href="#internship" class="btn-primary">View Internship Work</a>
-        <a href="#contact" class="btn-outline">Get In Touch</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- STATS -->
-<div id="stats">
-  <div class="stats-grid">
-    <div>
-      <span class="stat-num">30+</span>
-      <div class="stat-label">TryHackMe Rooms</div>
-    </div>
-    <div>
-      <span class="stat-num">5</span>
-      <div class="stat-label">HTB Badges</div>
-    </div>
-    <div>
-      <span class="stat-num">19+</span>
-      <div class="stat-label">Certifications</div>
-    </div>
-    <div>
-      <span class="stat-num">4</span>
-      <div class="stat-label">Fortune 500 Simulations</div>
-    </div>
-    <div>
-      <span class="stat-num">22</span>
-      <div class="stat-label">Internship Screenshots</div>
-    </div>
-    <div>
-      <span class="stat-num">3</span>
-      <div class="stat-label">Vulns Exploited (Lab)</div>
-    </div>
-    <div>
-      <span class="stat-num">4</span>
-      <div class="stat-label">Hands-On Projects Built</div>
-    </div>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="container">
-    <div class="sec-label">ABOUT ME</div>
-    <h2 class="sec-title">Building real skills,<br>not just theory.</h2>
-    <div class="sec-line"></div>
-    <div class="about-grid">
-      <div class="about-text">
+<!-- ════════════════════════════════ HERO ════════════════════════════════ -->
+<header>
+    <div class="container hero-content">
+        <div class="hero-badge">
+            <span>🛡️</span> Offensive Security &middot; Ethical Hacker
+        </div>
+        <h1>Hi, I'm <span>Anusha</span><br>Cybersecurity Analyst</h1>
         <p>
-          I'm a cybersecurity professional from Guntur, Andhra Pradesh with a B.Tech in Computer
-          Science from JNTU. My focus is on offensive security — penetration testing, ethical hacking,
-          and web application vulnerability assessment — alongside a solid defensive foundation in SOC
-          operations and incident response.
+            Hands-on penetration tester with completed <strong>Bandit</strong> and <strong>Natas</strong>
+            wargames from OverTheWire. I break things to understand them, then document
+            everything so others can learn.
         </p>
+        <div class="btn-group">
+            <a href="#wargames" class="btn btn-primary">See My Work ↓</a>
+            <a href="#mindset" class="btn btn-secondary">How I Think</a>
+        </div>
+        <div class="hero-stats">
+            <div><div class="num">57</div><div class="label">Levels Conquered</div></div>
+            <div><div class="num">2</div><div class="label">Wargames Complete</div></div>
+            <div><div class="num">∞</div><div class="label">Curiosity</div></div>
+        </div>
+    </div>
+</header>
+
+<!-- ════════════════════════════════ WARGA1MES ════════════════════════════════ -->
+<section id="wargames">
+    <div class="container">
+        <span class="section-label">Pillar 1 · Evidence of Problem-Solving</span>
+        <h2>Wargames &amp; Labs Completed</h2>
         <p>
-          What sets me apart is that I don't just study security — I practise it. I've completed 30+
-          rooms on TryHackMe, earned 5 badges on Hack The Box including Hack2Win 2025, and completed
-          a hands-on internship at Redynox where I manually exploited and documented SQL Injection,
-          XSS, and CSRF vulnerabilities in a controlled environment.
+            OverTheWire wargames simulate real-world attack scenarios. Each level forces
+            creative problem-solving — from Linux privilege escalation to SQL truncation attacks.
         </p>
+
+        <div class="wargame-grid">
+            <!-- Bandit -->
+            <div class="wargame-card">
+                <div class="card-header">
+                    <div class="icon">🐧</div>
+                    <h3>Bandit &mdash; All 34 Levels</h3>
+                </div>
+                <p>
+                    Mastered Linux command-line fundamentals, SSH tunnelling, cron abuses,
+                    setuid binaries, and password cracking — the foundation of every pentester.
+                </p>
+                <div>
+                    <span class="tag tag-green">Linux PrivEsc</span>
+                    <span class="tag tag-green">SSH</span>
+                    <span class="tag tag-green">Cron</span>
+                    <span class="tag tag-green">SetUID</span>
+                    <span class="tag tag-green">Cracking</span>
+                </div>
+                <div class="skill-list">
+                    <span>Level 0–9: Basic navigation &amp; grep</span>
+                    <span>Level 10–19: SSH keys, cron, base64</span>
+                    <span>Level 20–33: setuid, nmap, escape sequences</span>
+                </div>
+            </div>
+
+            <!-- Natas -->
+            <div class="wargame-card">
+                <div class="card-header">
+                    <div class="icon">🌐</div>
+                    <h3>Natas &mdash; All 34 Levels</h3>
+                </div>
+                <p>
+                    Web application security from soup to nuts — SQLi, XSS, SSRF, PHP
+                    serialization, path traversal, and the infamous MySQL trailing-space truncation trick.
+                </p>
+                <div>
+                    <span class="tag tag-blue">SQL Injection</span>
+                    <span class="tag tag-blue">XSS</span>
+                    <span class="tag tag-blue">SSRF</span>
+                    <span class="tag tag-blue">PHP Serialization</span>
+                    <span class="tag tag-blue">Path Traversal</span>
+                    <span class="tag tag-blue">MySQL Truncation</span>
+                </div>
+                <div class="skill-list">
+                    <span>Level 27: MySQL VARCHAR truncation exploit</span>
+                    <span>Level 26: PHP serialization / object injection</span>
+                    <span>Level 15–20: SQLi, SSRF, command injection</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════ DEEP DIVES ════════════════════════════════ -->
+<section id="deep-dives" style="padding-top:0;">
+    <div class="container">
+        <span class="section-label">Pillar 2 · Proof I Can Investigate, Break &amp; Defend</span>
+        <h2>Technical Deep Dives</h2>
+
+        <div class="project-card">
+            <div class="meta">
+                <span>📅 Jul 2026</span>
+                <span>🏷️ Web Security</span>
+                <span>🔗 OverTheWire Natas Level 27</span>
+            </div>
+            <h3>MySQL VARCHAR Truncation Exploit</h3>
+            <ul>
+                <li><strong>Observation:</strong> MySQL ignores trailing spaces in VARCHAR unique-comparisons but stores them distinctly — creating a mismatch between <code>WHERE</code> and <code>INSERT</code>.</li>
+                <li><strong>Exploit:</strong> Crafted a 65-char username (<code>natas28 + 57 spaces + 'x'</code>). PHP's <code>substr(0,64)</code> truncates the <code>'x'</code>, leaving <code>natas28</code> + trailing spaces stored in the DB.</li>
+                <li><strong>Outcome:</strong> Logged in as <code>natas28</code> with my own password; <code>dumpData()</code> with <code>trim()</code> returned the real user's row — leaked the next password.</li>
+                <li><strong>Defense:</strong> Use <code>VARBINARY</code> for usernames, trim input before any comparison, and reject whitespace-only differences in unique fields.</li>
+            </ul>
+        </div>
+
+        <div class="project-card">
+            <div class="meta">
+                <span>📅 Jul 2026</span>
+                <span>🏷️ Linux Privilege Escalation</span>
+                <span>🔗 OverTheWire Bandit</span>
+            </div>
+            <h3>Linux PrivEsc via Cron &amp; SetUID Binaries</h3>
+            <ul>
+                <li><strong>Observation:</strong> Multiple Bandit levels involve cron jobs running as root, or setuid binaries that allow arbitrary command execution.</li>
+                <li><strong>Exploit:</strong> Identified writable cron scripts, injected reverse shells, exploited <code>nmap --interactive</code>, and abused <code>tar</code> wildcard injection.</li>
+                <li><strong>Outcome:</strong> Escalated from low-privilege user to root across multiple levels, capturing flags.</li>
+                <li><strong>Defense:</strong> Avoid setuid on custom scripts; use cron path sanitization; never run <code>tar</code> with wildcards on untrusted directories.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════ HOW I THINK ════════════════════════════════ -->
+<section id="mindset">
+    <div class="container">
+        <span class="section-label">Pillar 3 · How I Think Under Real Scenarios</span>
+        <h2>Think-Aloud Walkthroughs</h2>
         <p>
-          I'm currently preparing for ISC2 CC, CompTIA Security+, and CompTIA Network+ certifications,
-          and I'm actively seeking junior roles in penetration testing, ethical hacking, or SOC analysis.
+            My methodology follows a repeatable loop: <strong>recon → hypothesize → test → pivot</strong>.
+            Here's how I approached two very different challenges.
         </p>
-      </div>
-      <div>
-        <ul class="info-list">
-          <li><span class="il">Location</span><span class="iv">Guntur, Andhra Pradesh, India</span></li>
-          <li><span class="il">Education</span><span class="iv">B.Tech CSE, JNTU Kakinada</span></li>
-          <li><span class="il">Email</span><span class="iv"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="66070813150e07481603140f0d070a075456565726010b070f0a4805090b">[email&#160;protected]</a></span></li>
-          <li><span class="il">LinkedIn</span><span class="iv">linkedin.com/in/perikala-anusha-76b214316</span></li>
-          <li><span class="il">Availability</span><span class="iv">Immediate — On-site, Remote, Hybrid</span></li>
-          <li><span class="il">Target Roles</span><span class="iv">Pen Tester · SOC Analyst · Ethical Hacker</span></li>
-          <li><span class="il">In Progress</span><span class="iv">ISC2 CC · CompTIA Security+ · Network+</span></li>
-        </ul>
-      </div>
+
+        <div class="think-card">
+            <div class="step">Scenario: MySQL Truncation (Natas 27)</div>
+            <h4>Step 1 — Read the source code</h4>
+            <p>
+                I noticed <code>substr($usr, 0, 64)</code> in <code>createUser()</code> and <code>trim($usr)</code>
+                in <code>dumpData()</code> — an inconsistency. <code>validUser()</code> used raw input.
+                Classic sign of a truncation bug.
+            </p>
+        </div>
+
+        <div class="think-card">
+            <div class="step">Scenario: MySQL Truncation (Natas 27)</div>
+            <h4>Step 2 — Form a hypothesis</h4>
+            <p>
+                "If I push a 65-char username past the 64-char limit, the 65th character gets
+                chopped during INSERT. But MySQL's <code>WHERE</code> still matches on the truncated value
+                due to trailing-space insensitivity. I can create a duplicate user with my own password."
+            </p>
+        </div>
+
+        <div class="think-card">
+            <div class="step">Scenario: MySQL Truncation (Natas 27)</div>
+            <h4>Step 3 — Test and pivot</h4>
+            <p>
+                Sent <code>POST username=natas28+57spaces+x&password=password</code>. User created.
+                Then logged in as <code>natas28</code> — <code>checkCredentials</code> matched my fake user,
+                <code>dumpData</code> with <code>trim()</code> returned the <strong>original</strong> natas28's row.
+                Flag captured.
+            </p>
+        </div>
+
+        <div class="think-card">
+            <div class="step">Scenario: Linux Escalation (Bandit)</div>
+            <h4>Step 1 — Recon</h4>
+            <p>
+                Ran <code>ls -la</code>, <code>find / -perm -4000</code>, checked <code>/etc/crontab</code>
+                and writable directories. Found a setuid binary or a cron job running my user's script.
+            </p>
+        </div>
+
+        <div class="think-card">
+            <div class="step">Scenario: Linux Escalation (Bandit)</div>
+            <h4>Step 2 — Exploit</h4>
+            <p>
+                Leveraged the setuid binary to execute commands as the target user, or modified the cron script
+                to copy the next level's password. Verified with <code>whoami</code> and <code>cat</code>.
+            </p>
+        </div>
     </div>
-  </div>
 </section>
 
-<!-- INTERNSHIP -->
-<section id="internship">
-  <div class="container">
-    <div class="sec-label">INTERNSHIP PROJECT</div>
-    <h2 class="sec-title">Redynox Cyber Security<br>Internship</h2>
-    <div class="sec-line"></div>
-    <div class="intern-card">
-      <div class="intern-header">
-        <div>
-          <div class="intern-org">REDYNOX · REMOTE INTERNSHIP</div>
-          <div class="intern-role">Cyber Security Intern</div>
+<!-- ════════════════════════════════ TOOLCHAIN ════════════════════════════════ -->
+<section>
+    <div class="container">
+        <span class="section-label">Toolchain</span>
+        <h2>Tools &amp; Techniques I Use</h2>
+        <div class="skill-list" style="gap:0.75rem;">
+            <span>Burp Suite</span>
+            <span>Kali Linux</span>
+            <span>Nmap</span>
+            <span>Netcat</span>
+            <span>Python 3</span>
+            <span>cURL</span>
+            <span>Wireshark</span>
+            <span>SQLMap</span>
+            <span>Gobuster</span>
+            <span>Hydra</span>
+            <span>John the Ripper</span>
+            <span>Metasploit</span>
+            <span>PHP</span>
+            <span>JavaScript</span>
+            <span>Linux CLI</span>
+            <span>Bash Scripting</span>
+            <span>SSH Tunneling</span>
+            <span>MySQL</span>
         </div>
-        <div class="intern-date">February 2026</div>
-      </div>
-      <div class="tasks-grid">
-        <div class="task-block">
-          <div class="task-num">TASK 01</div>
-          <div class="task-title">Network Security Basics</div>
-          <ul class="task-items">
-            <li>Configured Windows Defender Firewall (wf.msc) — all profiles ON, dropped-packet logging enabled, custom inbound block rule created</li>
-            <li>Hardened router admin credentials and upgraded wireless encryption to WPA3 + AES-CCMP after firmware update</li>
-            <li>Disabled legacy SMBv1 protocol via PowerShell (EternalBlue / WannaCry mitigation)</li>
-            <li>Turned off File and Printer Sharing to reduce SMB attack surface</li>
-            <li>Performed 10-minute Wireshark capture — applied tcp, dns, http.request filters — confirmed clean post-hardening baseline</li>
-          </ul>
-        </div>
-        <div class="task-block">
-          <div class="task-num">TASK 02</div>
-          <div class="task-title">Web Application Security</div>
-          <ul class="task-items">
-            <li>Deployed WebGoat 8.2.2 and OWASP ZAP 2.15 on localhost; configured Firefox + FoxyProxy proxy interception</li>
-            <li>Automated scan: 47 URLs discovered, 19 vulnerability alerts including 3 High-severity SQL Injection findings</li>
-            <li>Manually exploited SQL Injection (CVSS 9.8) using admin'-- authentication bypass payload</li>
-            <li>Exploited Reflected XSS (CVSS 8.8) with script tag and event-handler bypass payloads</li>
-            <li>Executed CSRF attack (CVSS 7.4) via forged auto-submit form — £5,000 transfer completed without victim action</li>
-            <li>Documented code-level fixes: PreparedStatement, Encode.forHtml() + CSP, CSRF token + SameSite=Strict</li>
-          </ul>
-        </div>
-      </div>
-      <div class="tools-row">
-        <span class="tools-label">TOOLS</span>
-        <span class="tool-pill">OWASP ZAP 2.15</span>
-        <span class="tool-pill">WebGoat 8.2.2</span>
-        <span class="tool-pill">Wireshark</span>
-        <span class="tool-pill">Windows Firewall</span>
-        <span class="tool-pill">PowerShell</span>
-        <span class="tool-pill">Firefox + FoxyProxy</span>
-        <span class="tool-pill">Kali-style CLI</span>
-      </div>
     </div>
-  </div>
 </section>
 
-<!-- SKILLS -->
-<section id="skills">
-  <div class="container">
-    <div class="sec-label">TECHNICAL SKILLS</div>
-    <h2 class="sec-title">Core Competencies</h2>
-    <div class="sec-line"></div>
-    <div class="skills-grid">
-      <div class="skill-card">
-        <div class="skill-cat">OFFENSIVE SECURITY</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Penetration Testing</span>
-          <span class="skill-tag">OWASP Top 10</span>
-          <span class="skill-tag">SQL Injection</span>
-          <span class="skill-tag">NoSQL Injection</span>
-          <span class="skill-tag">XSS</span>
-          <span class="skill-tag">CSRF</span>
-          <span class="skill-tag">Metasploit</span>
-          <span class="skill-tag">Burp Suite</span>
-          <span class="skill-tag">UAC Bypass</span>
-          <span class="skill-tag">Red Team</span>
-          <span class="skill-tag">OPSEC</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-cat">RECONNAISSANCE</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Active Recon</span>
-          <span class="skill-tag">Passive Recon</span>
-          <span class="skill-tag">Nmap</span>
-          <span class="skill-tag">NSE Scripts</span>
-          <span class="skill-tag">Network Enumeration</span>
-          <span class="skill-tag">OSINT</span>
-          <span class="skill-tag">Port Scanning</span>
-          <span class="skill-tag">Host Discovery</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-cat">WEB APP SECURITY</div>
-        <div class="skill-tags">
-          <span class="skill-tag">OWASP ZAP</span>
-          <span class="skill-tag">WebGoat</span>
-          <span class="skill-tag">Burp Suite</span>
-          <span class="skill-tag">HTTP/S Analysis</span>
-          <span class="skill-tag">Session Attacks</span>
-          <span class="skill-tag">Auth Flaws</span>
-          <span class="skill-tag">Injection</span>
-          <span class="skill-tag">CSP/CSRF Tokens</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-cat">DEFENSIVE / SOC</div>
-        <div class="skill-tags">
-          <span class="skill-tag">SOC Operations</span>
-          <span class="skill-tag">Incident Response</span>
-          <span class="skill-tag">Cyber Kill Chain</span>
-          <span class="skill-tag">Vulnerability Assessment</span>
-          <span class="skill-tag">Endpoint Security</span>
-          <span class="skill-tag">NIST CSF</span>
-          <span class="skill-tag">MITRE ATT&amp;CK</span>
-          <span class="skill-tag">iptables</span>
-          <span class="skill-tag">Firewall Design</span>
-          <span class="skill-tag">Network Hardening</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-cat">TOOLS & PLATFORMS</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Wireshark</span>
-          <span class="skill-tag">Nmap</span>
-          <span class="skill-tag">Metasploit</span>
-          <span class="skill-tag">Burp Suite</span>
-          <span class="skill-tag">OWASP ZAP</span>
-          <span class="skill-tag">Kali Linux</span>
-          <span class="skill-tag">TryHackMe</span>
-          <span class="skill-tag">Hack The Box</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-cat">PROGRAMMING</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Python (Security)</span>
-          <span class="skill-tag">Automation Scripts</span>
-          <span class="skill-tag">Linux Bash</span>
-          <span class="skill-tag">Windows API</span>
-          <span class="skill-tag">Log Parsing</span>
-          <span class="skill-tag">Alert Automation</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PERSONAL PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <div class="sec-label">PERSONAL PROJECTS</div>
-    <h2 class="sec-title">Hands-On Builds</h2>
-    <div class="sec-line"></div>
-    <div class="projects-grid">
-
-      <!-- FIREWALL PROJECT -->
-      <div class="project-card">
-        <div class="project-header">
-          <div>
-            <div class="project-tag">NETWORK SECURITY · LINUX · WSL</div>
-            <div class="project-title">Custom iptables Firewall — Kali Linux (WSL)</div>
-          </div>
-          <div class="project-badge">March 2026</div>
-        </div>
-        <div class="project-body">
-          <div class="project-block">
-            <div class="project-block-title">WHAT WAS BUILT</div>
-            <ul class="project-items">
-              <li>Designed and deployed a multi-layered stateful firewall from scratch using Linux <code style="color:var(--teal);font-size:12px;">iptables</code> inside Kali Linux on WSL2</li>
-              <li>Set default DROP policy on INPUT and FORWARD chains — all unsolicited inbound traffic blocked by default</li>
-              <li>Whitelisted only loopback, ESTABLISHED/RELATED sessions, HTTP (80), and HTTPS (443)</li>
-              <li>Implemented TCP flag-based rules to neutralise NULL, XMAS and other stealth port scan techniques</li>
-              <li>Applied rate-limiting ICMP rules to mitigate ping flood / ICMP-based DDoS attacks</li>
-              <li>Deployed INVALID packet drop rule to discard malformed and spoofed traffic</li>
-              <li>SSH brute-force throttling: max 3 login attempts per 60 seconds before IP-level block</li>
-              <li>Blocked high-risk legacy ports: Telnet (23), Windows RPC (135), SMB (445), SNMP (161)</li>
-              <li>Persisted all rules with <code style="color:var(--teal);font-size:12px;">netfilter-persistent</code> for survival across reboots</li>
-            </ul>
-          </div>
-          <div class="project-block">
-            <div class="project-block-title">SKILLS DEMONSTRATED</div>
-            <ul class="project-items">
-              <li>Deep understanding of TCP/IP — ports, states, packet flags, ICMP types</li>
-              <li>Threat modelling: identified real attack vectors (port scans, brute force, DDoS, SMB exploits) and built targeted mitigations</li>
-              <li>Command-line Linux proficiency — iptables syntax, chain management, rule ordering</li>
-              <li>Used <code style="color:var(--teal);font-size:12px;">nmap -sS</code> to self-test and verify firewall effectiveness post-deployment</li>
-              <li>Referenced real-world vulnerabilities: EternalBlue (CVE-2017-0144), WannaCry SMB exploit — blocked port 445 accordingly</li>
-              <li>Wrote a reusable shell script (<code style="color:var(--teal);font-size:12px;">my_firewall.sh</code>) for one-command firewall deployment</li>
-              <li>Validated results: nmap reported all 1000 ports as closed/filtered — zero exposure confirmed</li>
-              <li>Documented the entire build process step-by-step for knowledge sharing</li>
-            </ul>
-          </div>
-        </div>
-        <div class="project-result">
-          <span class="result-label">OUTCOME</span>
-          <span class="result-item"><span class="result-dot"></span>1000/1000 Ports Secured</span>
-          <span class="result-item"><span class="result-dot"></span>0 Open Attack Surface</span>
-          <span class="result-item"><span class="result-dot"></span>Brute Force Protected</span>
-          <span class="result-item"><span class="result-dot"></span>DDoS Mitigated</span>
-          <span class="result-item"><span class="result-dot"></span>Port Scan Blind</span>
-          <span class="result-item"><span class="result-dot"></span>Nmap Verified ✓</span>
-          <button class="project-detail-btn" onclick="toggleDetail('fw-detail', this)">VIEW TERMINAL SCREENSHOTS <span class="arrow">▼</span></button>
-        </div>
-        <!-- FIREWALL DETAIL PANEL -->
-        <div class="project-detail-panel" id="fw-detail">
-          <div class="project-detail-inner">
-            <div class="detail-grid">
-              <div class="detail-box">
-                <div class="detail-caption"><span class="detail-caption-num">01</span><span class="detail-caption-text">Firewall Rules Deployed</span><span class="detail-caption-badge">my_firewall.sh</span></div>
-                <div class="detail-term-bar"><div class="detail-dot r"></div><div class="detail-dot y"></div><div class="detail-dot g"></div><span class="detail-term-title">anuhack@PRINCY-LAPTOP — kali-linux</span><span class="detail-term-badge">DEPLOYED</span></div>
-                <div class="detail-term-body">
-                  <div class="dl"><span class="dp">anuhack@PRINCY-LAPTOP</span><span class="dc" style="color:#6b7fa3">:</span><span class="dc" style="color:#4a8fd4">~$</span><span class="dc">&nbsp;sudo bash my_firewall.sh</span></div>
-                  <div class="dl"><span class="do dt db">[+] Setting default DROP policy on INPUT...</span></div>
-                  <div class="dl"><span class="do dg">✔ INPUT chain: policy set to DROP</span></div>
-                  <div class="dl"><span class="do dg">✔ FORWARD chain: policy set to DROP</span></div>
-                  <div class="dl"><span class="do dg">✔ Loopback interface allowed</span></div>
-                  <div class="dl"><span class="do dg">✔ ESTABLISHED/RELATED sessions allowed</span></div>
-                  <div class="dl"><span class="do dg">✔ HTTP (80) and HTTPS (443) whitelisted</span></div>
-                  <div class="dl"><span class="do dr">✔ NULL scan packets: DROP rule added</span></div>
-                  <div class="dl"><span class="do dr">✔ XMAS scan packets: DROP rule added</span></div>
-                  <div class="dl"><span class="do dr">✔ ICMP flood limit: 1/sec enforced</span></div>
-                  <div class="dl"><span class="do dr">✔ INVALID state packets: DROP</span></div>
-                  <div class="dl"><span class="do dr">✔ Blocked: Telnet(23) RPC(135) SMB(445)</span></div>
-                  <div class="dl"><span class="do dg db">[✓] Firewall deployed — 12 rules active</span></div>
-                  <div class="result-box"><div class="result-row"><div class="result-dot2"></div><span class="result-text">All rules applied in correct order ✓</span></div><div class="result-row"><div class="result-dot2"></div><span class="result-text">Default DROP policy enforced ✓</span></div></div>
-                </div>
-              </div>
-              <div class="detail-box">
-                <div class="detail-caption"><span class="detail-caption-num">02</span><span class="detail-caption-text">Active Chains — Packets Intercepted</span><span class="detail-caption-badge">iptables -L -v -n</span></div>
-                <div class="detail-term-bar"><div class="detail-dot r"></div><div class="detail-dot y"></div><div class="detail-dot g"></div><span class="detail-term-title">anuhack@PRINCY-LAPTOP — kali-linux</span><span class="detail-term-badge">CHAINS ACTIVE</span></div>
-                <div class="detail-term-body">
-                  <div class="dl"><span class="dp">anuhack@PRINCY-LAPTOP</span><span class="dc" style="color:#6b7fa3">:</span><span class="dc" style="color:#4a8fd4">~$</span><span class="dc">&nbsp;sudo iptables -L -v -n --line-numbers</span></div>
-                  <div class="dl"><span class="do dt db">Chain INPUT (policy DROP  0 packets, 0 bytes)</span></div>
-                  <div class="dl"><span class="do dm">num  pkts bytes target    prot opt source       destination</span></div>
-                  <div class="dl"><span class="do dw">1      12  864 ACCEPT    all  --  lo     *       0.0.0.0/0</span></div>
-                  <div class="dl"><span class="do dw">2     847  94K ACCEPT    all  --  *      *       state RELATED,ESTABLISHED</span></div>
-                  <div class="dl"><span class="do dw">3       0    0 ACCEPT    tcp  --  *      *       tcp dpt:80</span></div>
-                  <div class="dl"><span class="do dw">4       3  180 ACCEPT    tcp  --  *      *       tcp dpt:443</span></div>
-                  <div class="dl"><span class="do dr">5       2   80 DROP      tcp  --  *      *       tcp flags:0x3F/0x00</span></div>
-                  <div class="dl"><span class="do dr">6       1   40 DROP      tcp  --  *      *       tcp flags:0x3F/0x3F</span></div>
-                  <div class="dl"><span class="do dr">9       0    0 DROP      all  --  *      *       state INVALID</span></div>
-                  <div class="dl"><span class="do dr">12      0    0 DROP      tcp  --  *      *       tcp dpt:445</span></div>
-                  <div class="result-box"><div class="result-row"><div class="result-dot2"></div><span class="result-text">INPUT policy: DROP — 12 active rules ✓</span></div><div class="result-row"><div class="result-dot2"></div><span class="result-text">3 scan/flood attempts blocked &amp; counted ✓</span></div></div>
-                </div>
-              </div>
-              <div class="detail-box">
-                <div class="detail-caption"><span class="detail-caption-num">03</span><span class="detail-caption-text">Nmap Verification — All 1000 Ports Secured</span><span class="detail-caption-badge">nmap -sS</span></div>
-                <div class="detail-term-bar"><div class="detail-dot r"></div><div class="detail-dot y"></div><div class="detail-dot g"></div><span class="detail-term-title">anuhack@PRINCY-LAPTOP — kali-linux</span><span class="detail-term-badge">VERIFIED ✓</span></div>
-                <div class="detail-term-body">
-                  <div class="dl"><span class="dp">anuhack@PRINCY-LAPTOP</span><span class="dc" style="color:#6b7fa3">:</span><span class="dc" style="color:#4a8fd4">~$</span><span class="dc">&nbsp;sudo nmap -sS -p 1-1000 127.0.0.1</span></div>
-                  <div class="dl"><span class="do dm">Starting Nmap 7.94SVN at 2026-03-24 10:32 UTC</span></div>
-                  <div class="dl"><span class="do dw">Nmap scan report for localhost (127.0.0.1)</span></div>
-                  <div class="dl"><span class="do dg">Host is up (0.0000020s latency).</span></div>
-                  <div class="dl"><span class="do dt db">All 1000 scanned ports on localhost (127.0.0.1)</span></div>
-                  <div class="dl"><span class="do dt db">are in ignored states (closed/filtered).</span></div>
-                  <div class="dl"><span class="do dw">Nmap done: 1 IP scanned in 0.11 seconds</span></div>
-                  <div class="result-box"><div class="result-row"><div class="result-dot2"></div><span class="result-text">1000/1000 ports closed or filtered ✓</span></div><div class="result-row"><div class="result-dot2"></div><span class="result-text">Zero open attack surface confirmed ✓</span></div></div>
-                </div>
-              </div>
-              <div class="detail-box">
-                <div class="detail-caption"><span class="detail-caption-num">04</span><span class="detail-caption-text">Rules Saved — Persists After Reboot</span><span class="detail-caption-badge">netfilter-persistent</span></div>
-                <div class="detail-term-bar"><div class="detail-dot r"></div><div class="detail-dot y"></div><div class="detail-dot g"></div><span class="detail-term-title">anuhack@PRINCY-LAPTOP — kali-linux</span><span class="detail-term-badge">SAVED</span></div>
-                <div class="detail-term-body">
-                  <div class="dl"><span class="dp">anuhack@PRINCY-LAPTOP</span><span class="dc" style="color:#6b7fa3">:</span><span class="dc" style="color:#4a8fd4">~$</span><span class="dc">&nbsp;sudo netfilter-persistent save</span></div>
-                  <div class="dl"><span class="do dg">run-parts: executing .../15-ip4tables save</span></div>
-                  <div class="dl"><span class="do dg">run-parts: executing .../25-ip6tables save</span></div>
-                  <div class="dl"><span class="do dt">*filter</span></div>
-                  <div class="dl"><span class="do dt db">:INPUT DROP [0:0]</span></div>
-                  <div class="dl"><span class="do dt db">:FORWARD DROP [0:0]</span></div>
-                  <div class="dl"><span class="do dg">:OUTPUT ACCEPT [291:38400]</span></div>
-                  <div class="dl"><span class="do dr">-A INPUT -p tcp --tcp-flags ALL NONE -j DROP</span></div>
-                  <div class="dl"><span class="do dt">COMMIT</span></div>
-                  <div class="result-box"><div class="result-row"><div class="result-dot2"></div><span class="result-text">Rules written to /etc/iptables/rules.v4 ✓</span></div><div class="result-row"><div class="result-dot2"></div><span class="result-text">Firewall survives reboots ✓</span></div></div>
-                </div>
-              </div>
+<!-- ════════════════════════════════ CERTIFICATIONS ════════════════════════════════ -->
+<section style="padding-top:0;">
+    <div class="container">
+        <span class="section-label">Recognition</span>
+        <h2>Wargame Completion Certificates</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem;">
+            <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:1.5rem;text-align:center;">
+                <div style="font-size:2.5rem;margin-bottom:0.5rem;">🐧</div>
+                <h3>Bandit Complete</h3>
+                <p style="font-size:0.85rem;">All 34 levels &middot; OverTheWire</p>
+                <span class="tag tag-green">Verified</span>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- OWASP ZAP PROJECT -->
-      <div class="project-card">
-        <div class="project-header">
-          <div><div class="project-tag">WEB APP SECURITY · OWASP · KALI LINUX</div><div class="project-title">OWASP ZAP — Web Application Security Testing</div></div>
-          <div class="project-badge">2026</div>
-        </div>
-        <div class="project-body">
-          <div class="project-block">
-            <div class="project-block-title">WHAT WAS BUILT</div>
-            <ul class="project-items">
-              <li>Deployed OWASP Juice Shop via Docker on localhost port 3000 — intentionally vulnerable legal target</li>
-              <li>Launched ZAP in daemon/headless mode with API access on port 8080</li>
-              <li>Ran Spider Scan — crawled all endpoints, discovered hidden URLs, built attack surface map</li>
-              <li>Executed Active Scan to simulate real attacks and deep vulnerability analysis</li>
-              <li>Ran Passive Scan on intercepted traffic — identified misconfigurations without active exploitation</li>
-              <li>Built Python automation script to orchestrate full scan pipeline via ZAP API</li>
-              <li>Generated structured HTML and JSON vulnerability reports</li>
-            </ul>
-          </div>
-          <div class="project-block">
-            <div class="project-block-title">SKILLS DEMONSTRATED</div>
-            <ul class="project-items">
-              <li>OWASP Top 10 testing methodology in a controlled lab environment</li>
-              <li>ZAP API integration — programmatic control of scan lifecycle</li>
-              <li>Python scripting for security automation and report generation</li>
-              <li>Docker deployment of vulnerable target applications</li>
-              <li>Spider + Active + Passive scan chaining for comprehensive coverage</li>
-              <li>Structured vulnerability reporting — JSON output to categorised findings</li>
-            </ul>
-          </div>
-        </div>
-        <div class="project-result">
-          <span class="result-label">OUTCOME</span>
-          <span class="result-item"><span class="result-dot"></span>Full Scan Automation</span>
-          <span class="result-item"><span class="result-dot"></span>OWASP Top 10 Tested</span>
-          <span class="result-item"><span class="result-dot"></span>Python Pipeline Built</span>
-          <span class="result-item"><span class="result-dot"></span>Reports Generated</span>
-          <button class="project-detail-btn" onclick="toggleDetail('zap-detail', this)">VIEW SCREENSHOTS <span class="arrow">▼</span></button>
-        </div>
-        <div class="project-detail-panel" id="zap-detail">
-          <div class="project-detail-inner">
-            <div class="detail-info-grid">
-              <div class="detail-info-box"><div class="dib-heading">01 — Environment Setup</div><div class="dib-cmd">sudo apt update && sudo apt upgrade -y</div><div class="dib-text">• Installed dependencies &amp; Java 17<br>• Configured Docker environment<br>• Prepared secure lab setup</div><div class="dib-result">✔ Ready for scanning</div></div>
-              <div class="detail-info-box"><div class="dib-heading">02 — Target Deployment</div><div class="dib-cmd">docker run -d -p 3000:3000 bkimminich/juice-shop</div><div class="dib-text">• Deployed vulnerable web app<br>• Legal target for testing<br>• Accessible on localhost:3000</div><div class="dib-result">✔ Target application running</div></div>
-              <div class="detail-info-box"><div class="dib-heading">03 — ZAP Daemon Mode</div><div class="dib-cmd">zap.sh -daemon -port 8080</div><div class="dib-text">• Started ZAP in headless mode<br>• Enabled API-based scanning<br>• WSL-compatible setup</div><div class="dib-result">✔ ZAP ready for automation</div></div>
-              <div class="detail-info-box"><div class="dib-heading">04 — Spider Scan</div><div class="dib-cmd">/JSON/spider/action/scan</div><div class="dib-text">• Crawled application endpoints<br>• Discovered hidden URLs<br>• Built attack surface map</div><div class="dib-result">✔ URLs enumerated</div></div>
-              <div class="detail-info-box"><div class="dib-heading">05 — Active Scan</div><div class="dib-cmd">/JSON/ascan/action/scan</div><div class="dib-text">• Simulated real attacks<br>• Tested for live vulnerabilities<br>• Deep security analysis</div><div class="dib-result">✔ Vulnerabilities detected</div></div>
-              <div class="detail-info-box"><div class="dib-heading">06 — Python Automation</div><div class="dib-cmd">python3 zap_scan.py</div><div class="dib-text">• Automated full scan pipeline<br>• Integrated ZAP API<br>• Generated JSON reports</div><div class="dib-result">✔ End-to-end automation</div></div>
+            <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:1.5rem;text-align:center;">
+                <div style="font-size:2.5rem;margin-bottom:0.5rem;">🌐</div>
+                <h3>Natas Complete</h3>
+                <p style="font-size:0.85rem;">All 34 levels &middot; OverTheWire</p>
+                <span class="tag tag-blue">Verified</span>
             </div>
-          </div>
         </div>
-      </div>
-
-      <!-- NMAP PROJECT -->
-      <div class="project-card">
-        <div class="project-header">
-          <div><div class="project-tag">RECONNAISSANCE · NETWORK SCANNING · KALI LINUX</div><div class="project-title">Nmap — Full Network Reconnaissance</div></div>
-          <div class="project-badge">2026</div>
-        </div>
-        <div class="project-body">
-          <div class="project-block">
-            <div class="project-block-title">WHAT WAS BUILT</div>
-            <ul class="project-items">
-              <li>Performed host discovery across a /24 subnet — identified all live hosts via ping sweep</li>
-              <li>Ran TCP SYN stealth scan to map open, closed, and filtered ports on target</li>
-              <li>Used service version detection (-sV) to fingerprint Apache, SSH, and other services</li>
-              <li>Ran aggressive scan (-A) for OS detection, traceroute, and NSE script execution</li>
-              <li>Documented each scan type, its use case, and how defenders detect and respond</li>
-            </ul>
-          </div>
-          <div class="project-block">
-            <div class="project-block-title">SKILLS DEMONSTRATED</div>
-            <ul class="project-items">
-              <li>Active reconnaissance methodology — structured recon before exploitation phase</li>
-              <li>TCP/IP deep knowledge: SYN packets, port states, ICMP probes</li>
-              <li>Service enumeration and OS fingerprinting for full attack surface mapping</li>
-              <li>Understanding how each scan appears in network logs — blue team awareness</li>
-              <li>Foundation for vulnerability assessment — knowing what is exposed before attacking</li>
-            </ul>
-          </div>
-        </div>
-        <div class="project-result">
-          <span class="result-label">OUTCOME</span>
-          <span class="result-item"><span class="result-dot"></span>Live Hosts Discovered</span>
-          <span class="result-item"><span class="result-dot"></span>Ports &amp; Services Mapped</span>
-          <span class="result-item"><span class="result-dot"></span>OS Fingerprinted</span>
-          <span class="result-item"><span class="result-dot"></span>Full Recon Completed</span>
-          <button class="project-detail-btn" onclick="toggleDetail('nmap-detail', this)">VIEW SCREENSHOTS <span class="arrow">▼</span></button>
-        </div>
-        <div class="project-detail-panel" id="nmap-detail">
-          <div class="project-detail-inner">
-            <div class="detail-info-grid">
-              <div class="detail-info-box"><div class="dib-heading">01 — Host Discovery</div><div class="dib-cmd">nmap -sn 192.168.1.0/24</div><div class="dib-text">• Identified live hosts in the network<br>• Discovered active IP addresses</div><div class="dib-result">✔ Network visibility established</div></div>
-              <div class="detail-info-box"><div class="dib-heading">02 — Port Scanning</div><div class="dib-cmd">nmap -sS 192.168.1.10</div><div class="dib-text">• Open ports: 22, 80, 443<br>• Closed &amp; filtered ports analysed</div><div class="dib-result">✔ Attack surface mapped</div></div>
-              <div class="detail-info-box"><div class="dib-heading">03 — Service Enumeration</div><div class="dib-cmd">nmap -sV 192.168.1.10</div><div class="dib-text">• Apache &amp; SSH versions detected<br>• Service fingerprinting completed</div><div class="dib-result">✔ Ready for vulnerability analysis</div></div>
-              <div class="detail-info-box"><div class="dib-heading">04 — OS Detection</div><div class="dib-cmd">nmap -A 192.168.1.10</div><div class="dib-text">• OS identified (Linux)<br>• Traceroute &amp; scripts executed</div><div class="dib-result">✔ Full system profiling done</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SOC LAB PROJECT -->
-      <div class="project-card">
-        <div class="project-header">
-          <div><div class="project-tag">SOC · SIEM · NETWORK IDS · UBUNTU LINUX</div><div class="project-title">Home SOC Lab — Suricata + ELK + Wazuh</div></div>
-          <div class="project-badge">March 2026</div>
-        </div>
-        <div class="project-body">
-          <div class="project-block">
-            <div class="project-block-title">WHAT WAS BUILT</div>
-            <ul class="project-items">
-              <li>Designed and deployed a full Security Operations Center on a single Ubuntu machine (~1.4GB RAM total)</li>
-              <li>Installed Suricata IDS/IPS — 46,000+ Emerging Threats rules, auto-detects network interface</li>
-              <li>Deployed Wazuh Agent for real-time log collection, file integrity monitoring, and SIEM alerting</li>
-              <li>Set up Elasticsearch + Kibana (ELK Stack) for log storage, search, and dashboard visualisation</li>
-              <li>Configured Filebeat to ship Suricata and Wazuh logs into Elasticsearch automatically</li>
-              <li>Simulated attacks: Nmap port scan, ICMP flood, SSH brute force — all detected and logged</li>
-              <li>Wrote SOC incident reports with MITRE ATT&amp;CK mapping for each detected attack</li>
-            </ul>
-          </div>
-          <div class="project-block">
-            <div class="project-block-title">SKILLS DEMONSTRATED</div>
-            <ul class="project-items">
-              <li>SOC operations: alert triage, log analysis, and incident reporting workflow</li>
-              <li>Network intrusion detection using Suricata with Emerging Threats ruleset</li>
-              <li>ELK stack deployment and Kibana dashboard configuration for real-time visibility</li>
-              <li>SIEM agent deployment (Wazuh) and log pipeline architecture</li>
-              <li>Attack simulation and blue team validation — verified detections with live alerts</li>
-              <li>MITRE ATT&amp;CK framework: T1595 Active Scanning, T1046 Network Service Discovery</li>
-              <li>Bash automation — full lab deployable with a single command</li>
-            </ul>
-          </div>
-        </div>
-        <div class="project-result">
-          <span class="result-label">OUTCOME</span>
-          <span class="result-item"><span class="result-dot"></span>Full SOC Pipeline Live</span>
-          <span class="result-item"><span class="result-dot"></span>Attacks Detected in Real-Time</span>
-          <span class="result-item"><span class="result-dot"></span>Kibana Dashboards Live</span>
-          <span class="result-item"><span class="result-dot"></span>Incident Reports Written</span>
-          <span class="result-item"><span class="result-dot"></span>MITRE ATT&amp;CK Mapped</span>
-          <button class="project-detail-btn" onclick="toggleDetail('soc-detail', this)">VIEW SETUP GUIDE <span class="arrow">▼</span></button>
-        </div>
-        <div class="project-detail-panel" id="soc-detail">
-          <div class="project-detail-inner">
-            <div class="detail-info-grid">
-              <div class="detail-info-box"><div class="dib-heading">Stack Overview</div><div class="dib-cmd">Total RAM: ~1.4GB ✅</div><div class="dib-text">• Suricata IDS/IPS → ~200MB<br>• Wazuh Agent → ~100MB<br>• Elasticsearch → ~512MB<br>• Kibana → ~300MB<br>• Filebeat → ~50MB</div><div class="dib-result">✔ Fits on standard VPS or home machine</div></div>
-              <div class="detail-info-box"><div class="dib-heading">Suricata — Network IDS</div><div class="dib-cmd">sudo suricata -c /etc/suricata/suricata.yaml -i eth0 -D</div><div class="dib-text">• 46,000+ threat rules loaded<br>• Detects: port scans, floods, brute force<br>• Logs to: /var/log/suricata/fast.log</div><div class="dib-result">✔ Alerts appear within 1 second</div></div>
-              <div class="detail-info-box"><div class="dib-heading">Attack Simulation — Port Scan</div><div class="dib-cmd">sudo nmap -sS 127.0.0.1</div><div class="dib-text">• Suricata fires: ET SCAN Nmap Detected<br>• Alert logged with source/dest IPs<br>• Forwarded to Kibana via Filebeat</div><div class="dib-result">✔ Detected in fast.log in real time</div></div>
-              <div class="detail-info-box"><div class="dib-heading">Kibana Dashboard</div><div class="dib-cmd">http://localhost:5601 → Discover → suricata*</div><div class="dib-text">• All Suricata alerts visible in real time<br>• Filter by alert type, IP, protocol<br>• Timeline, counts, geolocation views</div><div class="dib-result">✔ Full SOC visibility dashboard live</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </div>
 </section>
 
-<script>
-function toggleDetail(id, btn) {
-  var panel = document.getElementById(id);
-  var isOpen = panel.classList.contains('open');
-  panel.classList.toggle('open', !isOpen);
-  btn.classList.toggle('open', !isOpen);
-}
-</script>
-
-<!-- PLATFORMS -->
-<section id="platforms">
-  <div class="container">
-    <div class="sec-label">PRACTICAL LABS</div>
-    <h2 class="sec-title">Hands-On Training Platforms</h2>
-    <div class="sec-line"></div>
-    <div class="platforms-grid">
-      <div class="platform-card">
-        <div class="platform-header">
-          <div class="platform-icon thm">THM</div>
-          <div>
-            <div class="platform-name">TryHackMe</div>
-            <div class="platform-sub">Active Learner · 30+ Rooms Completed</div>
-          </div>
-        </div>
-        <ul class="platform-items">
-          <li>Red Team Fundamentals, OPSEC, Threat Intel, Engagements</li>
-          <li>Metasploit Framework, Bypassing UAC, Pentesting Fundamentals</li>
-          <li>OWASP Top 10, SQL Injection, Advanced SQLi, NoSQL Injection</li>
-          <li>Burp Suite Repeater, Web Application Basics, Web Security Essentials</li>
-          <li>Nmap, Active & Passive Recon, Network Enumeration, OSINT</li>
-          <li>Defensive Security, Junior SOC Analyst, Cyber Kill Chain, Antivirus</li>
-        </ul>
-      </div>
-      <div class="platform-card">
-        <div class="platform-header">
-          <div class="platform-icon htb">HTB</div>
-          <div>
-            <div class="platform-name">Hack The Box</div>
-            <div class="platform-sub">5 Badges Earned · Hack2Win 2025</div>
-          </div>
-        </div>
-        <ul class="platform-items">
-          <li>Network Enumeration with Nmap</li>
-          <li>Using the Metasploit Framework</li>
-          <li>Learning Process — structured methodology</li>
-        </ul>
-        <div class="badges-grid">
-          <span class="htb-badge">The Eye That Sees All</span>
-          <span class="htb-badge">Combine the Modules</span>
-          <span class="htb-badge">Light in the Dark</span>
-          <span class="htb-badge">Philomath</span>
-          <span class="htb-badge win">⭐ Raffle Royalty — Hack2Win 2025</span>
-        </div>
-      </div>
+<!-- ════════════════════════════════ FOOTER ════════════════════════════════ -->
+<footer>
+    <div class="container">
+        <p>Anusha &mdash; Cybersecurity Portfolio &bull; Built with 🛡️ after 68 wargame levels</p>
+        <p style="font-size:0.75rem;margin-top:0.5rem;">
+            <a href="https://github.com/AnushaSP07" target="_blank">GitHub</a> &middot;
+            <a href="https://anusha-cybersecurity-portfolio.vercel.app" target="_blank">Vercel</a> &middot;
+            OverTheWire: Bandit + Natas
+        </p>
     </div>
-  </div>
-</section>
+</footer>
 
-<!-- VIRTUAL EXPERIENCE -->
-<section id="experience">
-  <div class="container">
-    <div class="sec-label">VIRTUAL EXPERIENCE PROGRAMS</div>
-    <h2 class="sec-title">Fortune 500 Simulations</h2>
-    <div class="sec-line"></div>
-    <div class="exp-grid">
-      <div class="exp-card">
-        <div class="exp-company">TATA GROUP</div>
-        <div class="exp-prog">Cybersecurity Analyst Simulation · Forage · 2026</div>
-        <ul class="exp-pts">
-          <li>Analysed enterprise incidents, classified vulnerabilities by severity, performed risk assessments</li>
-          <li>Recommended NIST-aligned mitigation strategies and documented incident reports</li>
-          <li>Practised ITIL change request and patch management workflows</li>
-        </ul>
-      </div>
-      <div class="exp-card">
-        <div class="exp-company">MASTERCARD</div>
-        <div class="exp-prog">Cybersecurity Virtual Experience · Forage · 2026</div>
-        <ul class="exp-pts">
-          <li>Identified threats in simulated Mastercard enterprise environment</li>
-          <li>Proposed phishing and social engineering countermeasures</li>
-          <li>Applied PCI-DSS principles to payment infrastructure security</li>
-        </ul>
-      </div>
-      <div class="exp-card">
-        <div class="exp-company">AIG</div>
-        <div class="exp-prog">Cybersecurity Virtual Experience · Forage · 2026</div>
-        <ul class="exp-pts">
-          <li>Completed incident response scenarios for a global insurance organisation</li>
-          <li>Focused on ransomware response, stakeholder communication, recovery planning</li>
-        </ul>
-      </div>
-      <div class="exp-card">
-        <div class="exp-company">DELOITTE</div>
-        <div class="exp-prog">Cyber Job Simulation · Forage · 2026</div>
-        <ul class="exp-pts">
-          <li>Applied threat modelling and risk analysis in a consulting-style context</li>
-          <li>Delivered security advisory outputs for real-world-style cybersecurity challenges</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CERTIFICATIONS -->
-<section id="certs">
-  <div class="container">
-    <div class="sec-label">CERTIFICATIONS & COURSES</div>
-    <h2 class="sec-title">Credentials</h2>
-    <div class="sec-line"></div>
-    <div class="certs-grid">
-      <div class="cert-item">
-        <div class="cert-dot inprog"></div>
-        <div><div class="cert-name">ISC2 Certified in Cybersecurity (CC)</div><div class="cert-issuer">ISC2 · <span class="cert-year">In Progress</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot inprog"></div>
-        <div><div class="cert-name">CompTIA Security+</div><div class="cert-issuer">CompTIA · <span class="cert-year">In Progress</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot inprog"></div>
-        <div><div class="cert-name">CompTIA Network+</div><div class="cert-issuer">CompTIA · <span class="cert-year">In Progress</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">Ethical Hacker</div><div class="cert-issuer">Cisco Networking Academy · <span class="cert-year">2024</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">Cyber Security Internship</div><div class="cert-issuer">Redynox · <span class="cert-year">2026</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">Cybersecurity Analyst Job Simulation</div><div class="cert-issuer">Tata Group / Forage · <span class="cert-year">2026</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">Mastercard Cybersecurity Virtual Experience</div><div class="cert-issuer">Mastercard / Forage · <span class="cert-year">2026</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">AIG Cybersecurity Virtual Experience</div><div class="cert-issuer">AIG / Forage · <span class="cert-year">2026</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">Deloitte Cyber Job Simulation</div><div class="cert-issuer">Deloitte / Forage · <span class="cert-year">2026</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">Foundations of Cybersecurity</div><div class="cert-issuer">Google Career Certificates · <span class="cert-year">2023</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">Play It Safe: Manage Security Risks</div><div class="cert-issuer">Google Career Certificates · <span class="cert-year">2023</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">Assets, Threats & Vulnerabilities</div><div class="cert-issuer">Google Career Certificates · <span class="cert-year">2023</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">Automate Cybersecurity Tasks with Python</div><div class="cert-issuer">Google Career Certificates · <span class="cert-year">2023</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">Introduction to Cybersecurity</div><div class="cert-issuer">Cisco Networking Academy · <span class="cert-year">2023</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">Python Essentials 1 & 2</div><div class="cert-issuer">Cisco Networking Academy · <span class="cert-year">2023</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">Networking Basics</div><div class="cert-issuer">Cisco Networking Academy · <span class="cert-year">2023</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">AWS Cloud Practitioner Essentials</div><div class="cert-issuer">Amazon Web Services · <span class="cert-year">2025</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">AWS Network Connectivity Options</div><div class="cert-issuer">Amazon Web Services · <span class="cert-year">2025</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">AWS Technical Essentials</div><div class="cert-issuer">Amazon Web Services · <span class="cert-year">2025</span></div></div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-dot"></div>
-        <div><div class="cert-name">Finance for Non-Finance Professionals</div><div class="cert-issuer">Coursera · <span class="cert-year">2024</span></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="container">
-    <div class="sec-label">CONTACT</div>
-    <h2 class="sec-title">Let's Connect</h2>
-    <div class="sec-line" style="margin: 0 auto 24px;"></div>
-    <p class="contact-desc">
-      Available immediately for junior penetration testing, ethical hacking, SOC analyst,
-      or cybersecurity analyst roles across India — on-site, remote, or hybrid.
-    </p>
-    <div class="contact-links">
-      <a class="contact-link" href="/cdn-cgi/l/email-protection#33525d46405b521d4356415a58525f520103030273545e525a5f1d505c5e">
-        <span>✉</span> <span class="__cf_email__" data-cfemail="c2a3acb7b1aaa3ecb2a7b0aba9a3aea3f0f2f2f382a5afa3abaeeca1adaf">[email&#160;protected]</span>
-      </a>
-      <a class="contact-link" href="ht
+</body>
+</html>
